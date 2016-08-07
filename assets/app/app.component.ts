@@ -8,5 +8,5 @@ import { ContributionPicture } from './githubScraper/contributionPicture/index';
   directives:[ContributionPicture]
 })
 export class AppComponent {
-
+  
 }

@@ -10,8 +10,15 @@
     "noImplicitAny": false,
     "outDir": "../public/js/app"
   },
+  "filesGlob": [
+    "./assets/app/*.ts",
+    "./assets/app/**/*.ts"
+  ],
   "files": [
-    "./assets/app/boot.ts"
+    "./assets/app/app.component.ts",
+    "./assets/app/boot.ts",
+    "./assets/app/githubScraper/contributionPicture/contributionPicture.component.ts",
+    "./assets/app/githubScraper/contributionPicture/index.ts"
   ],
   "exclude": [
     "node_modules"

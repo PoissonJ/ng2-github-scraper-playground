@@ -52,11 +52,14 @@ gulp.task('vendor', function() {
 
   gulp.src('node_modules/zone.js/**')
     .pipe(gulp.dest(vendor + '/zone.js/'));
+
+  gulp.src('node_modules/cheerio/**')
+    .pipe(gulp.dest(vendor + '/cheerio/'));
 });
 
 gulp.task('watch', function() {
-  gulp.watch(appDev + '**/*.ts', ['build-ts']); // compile ts when it's changed
-  gulp.watch(appDev + '**/*.{html, htm, css}', ['build-copy']);
+  gulp.watch(appDev + '/**/*.ts', ['build-ts']); // compile ts when it's changed
+  gulp.watch(appDev + '/**/*.{html, htm, css}', ['build-copy']);
 });
 
 gulp.task('default', ['watch', 'build-ts', 'build-copy', 'vendor']);
