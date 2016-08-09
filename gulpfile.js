@@ -76,8 +76,6 @@ gulp.task('vendor', function() {
   gulp.src('node_modules/zone.js/**')
     .pipe(gulp.dest(vendor + '/zone.js/'));
 
-  gulp.src('node_modules/cheerio/**')
-    .pipe(gulp.dest(vendor + '/cheerio/'));
 });
 
 gulp.task('watch', function() {
