@@ -19,8 +19,18 @@ router.get('/githubContribution', function(req, res, next) {
 
     if (!error) {
       var $ = cheerio.load(html)
+      var data = $('svg g');
+      for (var i = data.children().length-1; i >= 0; i--) {
+        var currentElement = $(data.children[i]);
+      }
+        // for (var i = data.length - 1; i >= 0; i--) {
+        //   console.log(data[i]('rect'));
+        // }
+        //
+        // console.log(data);
+      }
       // var graph = $('.js-calendar-graph');
-      console.log(html);
+      // console.log(html);
       res.status(200).json({
         image: html
       });
@@ -28,7 +38,7 @@ router.get('/githubContribution', function(req, res, next) {
 
     } else {
       res.send(error)
-  }
+  })
 
   })
 });
