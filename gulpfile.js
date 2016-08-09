@@ -1,5 +1,9 @@
 var gulp = require('gulp');
 
+var browserSync = require('browser-sync');
+var reload = browserSync.reload;
+var nodemon = require('gulp-nodemon');
+
 var gulpTypescript = require('gulp-typescript');
 var gulpSourcemaps = require('gulp-sourcemaps');
 
@@ -10,6 +14,25 @@ var appProd = 'public/js/app';
 var vendor = 'public/js/vendor';
 
 var tsconfig = gulpTypescript.createProject('tsconfig.json');
+
+gulp.task('browser-sync', function() {
+    browserSync.init(null, {
+        proxy: "http://localhost:3000", // port of node server
+        port: 7000
+        // files: ["./public/**/*.*"]
+    });
+});
+
+gulp.task('nodemon', function (cb) {
+// gulp.task('nodemon', function (cb) {
+    var callbackCalled = false;
+    return nodemon({script: './bin/www'}).on('start', function () {
+        if (!callbackCalled) {
+            callbackCalled = true;
+            cb();
+        }
+    });
+});
 
 gulp.task('build-ts', function() {
   return gulp.src(appDev + '/**/*.ts') // load all ts files
@@ -58,9 +81,10 @@ gulp.task('vendor', function() {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(appDev + '/**/*.ts', ['build-ts']); // compile ts when it's changed
-  gulp.watch(appDev + '/**/*.{html, htm, css}', ['build-copy']);
+  gulp.watch(appDev + '/**/*.ts', ['build-ts']).on('change', reload) // compile ts when it's changed
+  gulp.watch(appDev + '/**/*.{html, htm, css}', ['build-copy']).on('change', reload);
 });
 
-gulp.task('default', ['watch', 'build-ts', 'build-copy', 'vendor']);
+// gulp.task('default', ['watch', 'build-ts', 'build-copy', 'vendor', 'browser-sync']);
+gulp.task('default', ['clean', 'watch', 'build-ts','build-copy','vendor','browser-sync']);
 gulp.task('build', ['build-ts', 'build-copy', 'vendor']);
