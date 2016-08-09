@@ -12,17 +12,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/githubContribution', function(req, res, next) {
-  // url = "https://github.com/users/poissonj/contributions";
-  url = "https://github.com/poissonj";
+  url = "https://github.com/users/poissonj/contributions";
+  // url = "https://github.com/poissonj";
 
   request(url, function(error, response, html) {
 
     if (!error) {
       var $ = cheerio.load(html)
-      var graph = $('.js-calendar-graph');
+      // var graph = $('.js-calendar-graph');
       console.log(html);
       res.status(200).json({
-        image: graph
+        image: html
       });
       // res.send(html);
 
