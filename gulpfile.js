@@ -15,36 +15,28 @@ var vendor = 'public/js/vendor';
 
 var tsconfig = gulpTypescript.createProject('tsconfig.json');
 
-gulp.task('browser-sync', ['nodemon'], function() {
-    browserSync.init(null, {
-        proxy: "http://localhost:3000", // port of node server
-        port: 7000,
-        notify: true
-        // files: ["./public/**/*.*"]
-    });
-});
 
-gulp.task('nodemon', ['build-ts', 'build-copy', 'vendor'],function (cb) {
-  var called = false;
-  return nodemon({
-    script: 'bin/www',
-    ignore: [
-      'gulpfile.js',
-      'node_modules/',
-      'public/js/'
-    ]
-  })
-  .on('start', function () {
-    if (!called) {
-      called = true;
-      cb();
-    }
-  })
-  .on('restart', function () {
-    setTimeout(function () {
-      reload({ stream: false });
-    }, 1000);
-  });
+gulp.task('browser-sync', ['nodemon'], function() {
+	browserSync.init(null, {
+		proxy: "http://localhost:3000",
+        files: ["./assets/**/*.*"],
+        port: 7000,
+	});
+});
+gulp.task('nodemon', function (cb) {
+
+	var started = false;
+
+	return nodemon({
+		script: 'bin/www'
+	}).on('start', function () {
+		// to avoid nodemon being started multiple times
+		// thanks @matthisk
+		if (!started) {
+			cb();
+			started = true;
+		}
+	});
 });
 
 gulp.task('build-ts', function() {
@@ -61,7 +53,8 @@ gulp.task('build-copy', function() {
 });
 
 gulp.task('clean', function() {
-  del(appProd + '/**/*');
+  del(appProd + '/*');
+  del(vendor + '/*');
 });
 
 gulp.task('vendor', function() {
@@ -88,7 +81,6 @@ gulp.task('vendor', function() {
 
   gulp.src('node_modules/zone.js/**')
     .pipe(gulp.dest(vendor + '/zone.js/'));
-
 });
 
 gulp.task('watch', function() {
@@ -97,7 +89,7 @@ gulp.task('watch', function() {
 });
 
 // gulp.task('default', ['watch', 'build-ts', 'build-copy', 'vendor', 'browser-sync']);
-gulp.task('default', ['clean', 'browser-sync'], function() {
+gulp.task('default', ['clean', 'build', 'browser-sync'], function() {
   gulp.watch(appDev + '/**/*.ts', ['build-ts']).on('change', reload) // compile ts when it's changed
   gulp.watch(appDev + '/**/*.{html, htm, css}', ['build-copy']).on('change', reload);
 });

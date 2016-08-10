@@ -5,8 +5,8 @@ import { ContributionPicture } from './githubScraper/contributionPicture/index';
   moduleId: module.id,
   selector: 'my-app',
   templateUrl: 'app.component.html',
-  directives:[ContributionPicture]
+  directives: [ContributionPicture]
 })
 export class AppComponent {
-  
+
 }

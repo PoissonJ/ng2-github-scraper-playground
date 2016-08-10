@@ -23,23 +23,13 @@ router.get('/githubContribution', function(req, res, next) {
       for (var i = data.children().length-1; i >= 0; i--) {
         var currentElement = $(data.children[i]);
       }
-        // for (var i = data.length - 1; i >= 0; i--) {
-        //   console.log(data[i]('rect'));
-        // }
-        //
-        // console.log(data);
-      }
-      // var graph = $('.js-calendar-graph');
-      // console.log(html);
       res.status(200).json({
         image: html
       });
-      // res.send(html);
 
     } else {
       res.send(error)
-  })
-
+    }
   })
 });
 
