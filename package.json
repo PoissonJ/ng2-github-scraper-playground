@@ -28,6 +28,7 @@
     "express": "~4.13.4",
     "github-scraper": "^3.1.0",
     "hbs": "~4.0.0",
+    "moment": "^2.14.1",
     "morgan": "~1.7.0",
     "ng2-bootstrap": "^1.0.24",
     "reflect-metadata": "^0.1.3",
