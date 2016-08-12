@@ -18,36 +18,53 @@ router.get('/githubContribution', function(req, res, next) {
   request(url, function(error, response, html) {
 
     if (!error) {
+      var count = 0
+
       var previousDate = null;
       var currentDate = null;
 
+      var previousDateDataCount = 0;
+      var currentDateDataCount = 0;
+
       var $ = cheerio.load(html)
 
-      var count = 0
+      // Loop through each <rect> element
       $('.day').each(function(i, elem) {
-        var dateString = $(this).attr('data-date')
 
-        // console.log(dateString);
-        var currentDate = moment(dateString);
-        if (previousDate) { // make sure previous date is defined
-          console.log('current  :' + currentDate.format());
-          console.log('previous : ' +previousDate.format());
-          if (currentDate.subtract(1, 'day').format() == previousDate.format()) {
-            console.log('worked');
-          }
+        // Extract the data count for the day
+        currentDateDataCount = $(this).attr('data-count')
+
+        if (currentDateDataCount != 0 && count == 0) {
+          // Start of new streak count
+          count = 1;
         }
 
-        currentDate.add(1, 'day'); // have to add a day becuase the subtract funciton
-        // changes the value
-        // console.log(date.format());
-        previousDate = currentDate;
-        count++
+        // We only want to continue scraping if there is a streak happening
+        if (count > 0) {
+
+          //Grab the date from the current element and create new date object
+          var dateString = $(this).attr('data-date');
+          currentDate = moment(dateString);
+
+          // Add to steak if the data count from previous is > 0
+          if (previousDateDataCount != 0) {
+            // console.log("current date: " +  currentDate.format())
+            count++
+          } else {
+            count = 0;
+          }
+
+          previousDate = currentDate;
+          previousDateDataCount = currentDateDataCount;
+        }
+
       });
       console.log('total:' + count);
 
 
       res.status(200).json({
-        image: html
+        image: html,
+        streak: count
       });
 
     } else {
