@@ -12,6 +12,7 @@ import {Observable} from "rxjs/Observable";
 })
 export class ContributionPicture {
   public html: SafeHtml;
+  test: string = 'hi!';
 
   constructor(private _http: Http, private sanitizer: DomSanitizationService) {
     this.getImage();
