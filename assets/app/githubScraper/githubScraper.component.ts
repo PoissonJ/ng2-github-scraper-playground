@@ -7,12 +7,12 @@ import {Observable} from "rxjs/Observable";
 
 @Component({
   moduleId: module.id,
-  selector: 'contribution-picture',
-  templateUrl: 'contributionPicture.html'
+  selector: 'github-scraper',
+  templateUrl: 'githubScraper.html'
 })
-export class ContributionPicture {
+export class GithubScraper {
   public html: SafeHtml;
-  test: string = 'hi!';
+  public streak: string;
 
   constructor(private _http: Http, private sanitizer: DomSanitizationService) {
     this.getImage();
@@ -22,6 +22,7 @@ export class ContributionPicture {
     this._http.get('http://localhost:3000/githubContribution')
       .subscribe(response => {
         var incomingHtml = response.json().image;
+        this.streak = response.json().streak;
         this.html = this.sanitizer.bypassSecurityTrustHtml(incomingHtml);
       })
   }

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ContributionPicture } from './githubScraper/contributionPicture/index';
+import { GithubScraper } from './githubScraper/index';
 
 @Component({
   moduleId: module.id,
   selector: 'my-app',
   templateUrl: 'app.component.html',
-  directives: [ContributionPicture]
+  directives: [GithubScraper]
 })
 export class AppComponent {
 

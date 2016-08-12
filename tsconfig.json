@@ -17,10 +17,9 @@
   "files": [
     "./assets/app/app.component.ts",
     "./assets/app/boot.ts",
-    "./assets/app/githubScraper/contributionPicture/contributionPicture.component.ts",
-    "./assets/app/githubScraper/contributionPicture/index.ts",
-    "./assets/app/githubScraper/streak/index.ts",
-    "./assets/app/githubScraper/streak/streak.component.ts"
+    "./assets/app/githubScraper/contributionPicture.component.ts",
+    "./assets/app/githubScraper/githubScraper.component.ts",
+    "./assets/app/githubScraper/index.ts"
   ],
   "exclude": [
     "node_modules"
