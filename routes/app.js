@@ -1,6 +1,7 @@
 var express = require('express');
 var cheerio = require('cheerio');
 var request = require('request');
+var moment = require('moment');
 var gs = require('github-scraper');
 var router = express.Router();
 
@@ -17,11 +18,34 @@ router.get('/githubContribution', function(req, res, next) {
   request(url, function(error, response, html) {
 
     if (!error) {
+      var previousDate = null;
+      var currentDate = null;
+
       var $ = cheerio.load(html)
-      var data = $('svg g');
-      for (var i = data.children().length-1; i >= 0; i--) {
-        var currentElement = $(data.children[i]);
-      }
+
+      var count = 0
+      $('.day').each(function(i, elem) {
+        var dateString = $(this).attr('data-date')
+
+        // console.log(dateString);
+        var currentDate = moment(dateString);
+        if (previousDate) { // make sure previous date is defined
+          console.log('current  :' + currentDate.format());
+          console.log('previous : ' +previousDate.format());
+          if (currentDate.subtract(1, 'day').format() == previousDate.format()) {
+            console.log('worked');
+          }
+        }
+
+        currentDate.add(1, 'day'); // have to add a day becuase the subtract funciton
+        // changes the value
+        // console.log(date.format());
+        previousDate = currentDate;
+        count++
+      });
+      console.log('total:' + count);
+
+
       res.status(200).json({
         image: html
       });
