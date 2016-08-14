@@ -17,7 +17,6 @@
   "files": [
     "./assets/app/app.component.ts",
     "./assets/app/boot.ts",
-    "./assets/app/githubScraper/contributionPicture.component.ts",
     "./assets/app/githubScraper/githubScraper.component.ts",
     "./assets/app/githubScraper/index.ts"
   ],
