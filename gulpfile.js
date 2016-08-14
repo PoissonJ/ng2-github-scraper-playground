@@ -73,7 +73,7 @@ gulp.task('nodemon', function(cb) {
       browserSync.reload({
         stream: false
       });
-    }, BROWSER_SYNC_RELOAD_DELAY);
+  }, BROWSER_SYNC_RELOAD_DELAY);
   });
 });
 
