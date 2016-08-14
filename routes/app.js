@@ -48,7 +48,6 @@ router.get('/githubContribution', function(req, res, next) {
 
           // Add to steak if the data count from previous is > 0
           if (previousDateDataCount != 0) {
-            // console.log("current date: " +  currentDate.format())
             count++
           } else {
             count = 0;
@@ -74,3 +73,4 @@ router.get('/githubContribution', function(req, res, next) {
 });
 
 module.exports = router;
+
