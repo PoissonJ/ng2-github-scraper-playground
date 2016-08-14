@@ -13,6 +13,7 @@ import {Observable} from "rxjs/Observable";
 export class GithubScraper {
   public html: SafeHtml;
   public streak: string;
+  public loading: boolean = true;
 
   constructor(private _http: Http, private sanitizer: DomSanitizationService) {
     this.getImage();
@@ -24,6 +25,7 @@ export class GithubScraper {
         var incomingHtml = response.json().image;
         this.streak = response.json().streak;
         this.html = this.sanitizer.bypassSecurityTrustHtml(incomingHtml);
+        this.loading = false;
       })
   }
 }

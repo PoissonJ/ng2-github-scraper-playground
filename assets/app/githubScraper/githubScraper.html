@@ -1,3 +1,11 @@
 <h1>Contribution Picture</h1>
-<div [innerHTML]=html></div>
-<h2>Current streak: {{streak}} days</h2>
+
+<div *ngIf="loading">
+  <h2>
+  Scraping...
+  </h2>
+</div>
+<div *ngIf="!loading">
+  <div [innerHTML]=html></div>
+  <h2>Current streak: {{streak}} days</h2>
+</div>
