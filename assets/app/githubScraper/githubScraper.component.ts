@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
-import { Http } from '@angular/http';
-import { DomSanitizationService, SafeHtml } from '@angular/platform-browser';
-import 'rxjs/Rx'; // .map()
+import { Component } from "@angular/core";
+import { Http } from "@angular/http";
+import { DomSanitizationService, SafeHtml } from "@angular/platform-browser";
+import "rxjs/add/operator/map"; // .map()
 import {Observable} from "rxjs/Observable";
 
 
 @Component({
   moduleId: module.id,
-  selector: 'github-scraper',
-  templateUrl: 'githubScraper.html'
+  selector: "github-scraper",
+  templateUrl: "githubScraper.html"
 })
 export class GithubScraper {
   public html: SafeHtml;
@@ -20,12 +20,12 @@ export class GithubScraper {
   }
 
   getImage() {
-    this._http.get('http://localhost:3000/githubContribution')
+    this._http.get("http://localhost:3000/githubContribution")
       .subscribe(response => {
-        var incomingHtml = response.json().image;
+        let incomingHtml = response.json().image;
         this.streak = response.json().streak;
         this.html = this.sanitizer.bypassSecurityTrustHtml(incomingHtml);
         this.loading = false;
-      })
+      });
   }
 }
