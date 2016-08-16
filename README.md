@@ -6,7 +6,8 @@
 - `npm install`
 - `gulp` will start a browersync session
 
-You can change the link in the `app.js` file to match your username -->https://github.com/users/YOUR_USERNAME/contributions
+You can change the link in the `app.js` file to match your username
+>https://github.com/users/YOUR_USERNAME/contributions
 
 ## Why?
 
