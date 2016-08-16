@@ -43,8 +43,8 @@ router.get('/githubContribution', function(req, res, next) {
         if (count > 0) {
 
           //Grab the date from the current element and create new date object
-          var dateString = $(this).attr('data-date');
-          currentDate = moment(dateString);
+          // var dateString = $(this).attr('data-date');
+          // currentDate = moment(dateString);
 
           // Add to steak if the data count from previous is > 0
           if (previousDateDataCount != 0) {
@@ -73,4 +73,3 @@ router.get('/githubContribution', function(req, res, next) {
 });
 
 module.exports = router;
-
