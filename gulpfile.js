@@ -49,7 +49,7 @@ gulp.task('build-ts', function() {
 });
 
 gulp.task('build-copy', function() {
-  return gulp.src([appDev + '/**/*.html', appDev + '/**/*.htm', appDev + '/**/*.css']) // load all css and html files
+  return gulp.src([appDev + '/**/*.html', appDev + '/**/*.css']) // load all css and html files
     .pipe(gulp.dest(appProd)); // Move to specified folder
 });
 
@@ -59,21 +59,20 @@ gulp.task('nodemon', function(cb) {
     // nodemon our expressjs server
     script: './bin/www',
     // watch core server file(s) that require server restart on change
-    // watch: ['./app.js', './views/**/*.js','./routes/**/*.js']
 		ignore: ['./assets/', './node_modules/', './public/', './typings']
   })
   .on('start', function onStart() {
     // ensure start only got called once
     if (!called) { cb(); }
     called = true;
-  })
+  }, BROWSER_SYNC_RELOAD_DELAY)
   .on('restart', function onRestart() {
     // reload connected browsers after a slight delay
     setTimeout(function reload() {
       browserSync.reload({
         stream: false
       });
-  }, BROWSER_SYNC_RELOAD_DELAY);
+    }, BROWSER_SYNC_RELOAD_DELAY);
   });
 });
 
@@ -83,8 +82,6 @@ gulp.task('browser-sync', ['nodemon'], function() {
     // informs browser-sync to proxy our expressjs app which would run at the following location
     proxy: 'http://localhost:3000',
     port: 4000,
-    // open the proxied app in chrome
-    //browser: 'google chrome'
   });
 });
 
@@ -94,7 +91,8 @@ gulp.task('bs-reload', function() {
 
 gulp.task('watch', function() {
   gulp.watch(appDev + '/**/*.ts', ['build-ts', browserSync.reload]); // compile ts when it's changed
-  gulp.watch(appDev + '/**/*.{html, htm, css}', ['build-copy', browserSync.reload]);
+  gulp.watch(appDev + '/**/*.html', ['build-copy', browserSync.reload]);
+  gulp.watch(appDev + '/**/*.css',  ['build-copy', browserSync.reload]);
 });
 
 
@@ -104,4 +102,3 @@ gulp.task('clean', function() {
 });
 
 gulp.task('default', ['build-vendor', 'watch', 'build-ts', 'build-copy', 'browser-sync']);
-gulp.task('clean', ['clean']);
