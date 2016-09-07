@@ -11,6 +11,6 @@ You can change the link in the `app.js` file to match your username
 
 ## Why?
 
-Github removed the day streak from a users profile. This application will retrieve the image of the contribution graph and scrape it for the current streak.
+Github removed the day streak from a user's profile. This application will retrieve the image of the contribution graph and scrape it for the current streak.
 
 ![alt text](./github-scraper-example.png "Example")
